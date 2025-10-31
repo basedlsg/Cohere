@@ -1,0 +1,50 @@
+{
+  "emulators": {
+    "default": {
+      "port": 3569,
+      "serviceAccount": "emulator-account"
+    }
+  },
+  "contracts": {
+    "ComplianceMonitor": "./contracts/ComplianceMonitor.cdc",
+    "CheckTransactionAmount": "./actions/CheckTransactionAmount.cdc",
+    "ComplianceCheck": "./workflows/ComplianceCheck.cdc"
+  },
+  "networks": {
+    "emulator": "127.0.0.1:3569",
+    "testnet": "access.devnet.nodes.onflow.org:9000",
+    "mainnet": "access.mainnet.nodes.onflow.org:9000"
+  },
+  "accounts": {
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "key": "ae1b44c0f5e8f6cc50d6e5c4d1e8c5f8a9d6c5b4a3d2c1b0a9f8e7d6c5b4a3d2"
+    },
+    "testnet-account": {
+      "address": "REPLACE_WITH_YOUR_TESTNET_ADDRESS",
+      "key": {
+        "type": "hex",
+        "index": 0,
+        "signatureAlgorithm": "ECDSA_P256",
+        "hashAlgorithm": "SHA3_256",
+        "privateKey": "REPLACE_WITH_YOUR_PRIVATE_KEY"
+      }
+    }
+  },
+  "deployments": {
+    "emulator": {
+      "emulator-account": [
+        "ComplianceMonitor",
+        "CheckTransactionAmount",
+        "ComplianceCheck"
+      ]
+    },
+    "testnet": {
+      "testnet-account": [
+        "ComplianceMonitor",
+        "CheckTransactionAmount",
+        "ComplianceCheck"
+      ]
+    }
+  }
+}
