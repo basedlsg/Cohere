@@ -117,12 +117,13 @@ Visit `http://localhost:3000`
 
 **Video**: [Coming Soon - 90 second demo]
 
-**Live Testnet Transactions**:
-- Contract Deployment: `[TX_HASH_1]`
-- Action Registration: `[TX_HASH_2]`
-- Workflow Execution: `[TX_HASH_3]`
-- Audit Event: `[TX_HASH_4]`
-- Threshold Update: `[TX_HASH_5]`
+**Emulator Transactions** (Testnet coming soon):
+- Contract Deployment (ComplianceMonitor): `995bdb5f6911bf0267faf9fda5d8bfab0700c645ce37fbf9c4248602bd0a3f22`
+- Contract Deployment (CheckTransactionAmount): `a58a19da14091e2eb542fdb4d6896d54c76cf90d77954415490e3a46ef8e0847`
+- Contract Deployment (ComplianceCheck): `c8fa4cb5a788e60788a599b555a2f7916e69f5abd200045ce7d6b3dc211c44fc`
+- Threshold Update: `fe91a079f8bf98625b7d51cdd9fa7b10a510263379e01b4e5919aeaa71645aea`
+- Workflow Execution (Flagged): `0e622f14cfadd39653281cebcddf5389c678067027bbae30e36603d3ada6b786`
+- Workflow Execution (Normal): `67825f64a67263c19fca8d419534e5367fbcdfeeb6ce4c55a8852ce5cd91f8ce`
 
 **Testnet Explorer**: https://testnet.flowscan.io
 

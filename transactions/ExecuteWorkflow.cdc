@@ -3,16 +3,15 @@
 //
 // Usage:
 // flow transactions send ./transactions/ExecuteWorkflow.cdc \
-//   --arg String:"0xabcd1234..." \
-//   --arg UFix64:15000.0 \
-//   --signer testnet-account \
-//   --network=testnet
+//   --args-json '[{"type":"String","value":"0xabcd1234..."},{"type":"UFix64","value":"15000.0"}]' \
+//   --signer emulator-account \
+//   --network=emulator
 
-import ComplianceCheck from "../workflows/ComplianceCheck.cdc"
+import ComplianceCheck from 0xf8d6e0586b0a20c7
 
 transaction(txHash: String, amount: UFix64) {
 
-    prepare(signer: AuthAccount) {
+    prepare(signer: &Account) {
         // No preparation needed - workflow is stateless
     }
 
@@ -21,7 +20,7 @@ transaction(txHash: String, amount: UFix64) {
         let workflow <- ComplianceCheck.createWorkflow()
 
         // Execute compliance check
-        let flagged = workflow.execute(txHash: txHash, amount: amount)
+        let flagged = workflow.run(txHash: txHash, amount: amount)
 
         // Log result
         if flagged {

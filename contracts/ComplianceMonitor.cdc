@@ -6,17 +6,17 @@
 // - Audit event logging
 // - Integration with Forte Actions/Workflows
 
-pub contract ComplianceMonitor {
+access(all) contract ComplianceMonitor {
 
     // Storage paths
-    pub let AdminStoragePath: StoragePath
+    access(all) let AdminStoragePath: StoragePath
 
     // Contract state
-    pub var threshold: UFix64
-    pub var auditCount: UInt64
+    access(all) var threshold: UFix64
+    access(all) var auditCount: UInt64
 
     // Events
-    pub event ComplianceAuditLog(
+    access(all) event ComplianceAuditLog(
         txHash: String,
         amount: UFix64,
         timestamp: UFix64,
@@ -24,15 +24,15 @@ pub contract ComplianceMonitor {
         reason: String
     )
 
-    pub event ThresholdUpdated(
+    access(all) event ThresholdUpdated(
         oldThreshold: UFix64,
         newThreshold: UFix64,
         updatedBy: Address
     )
 
     // Admin resource for managing threshold
-    pub resource Admin {
-        pub fun updateThreshold(newThreshold: UFix64) {
+    access(all) resource Admin {
+        access(all) fun updateThreshold(newThreshold: UFix64) {
             let oldThreshold = ComplianceMonitor.threshold
             ComplianceMonitor.threshold = newThreshold
 
@@ -45,12 +45,12 @@ pub contract ComplianceMonitor {
     }
 
     // Public function to check if amount exceeds threshold
-    pub fun checkAmount(amount: UFix64): Bool {
+    access(all) fun checkAmount(amount: UFix64): Bool {
         return amount >= self.threshold
     }
 
     // Log audit event (called by Workflow)
-    pub fun logAudit(txHash: String, amount: UFix64) {
+    access(all) fun logAudit(txHash: String, amount: UFix64) {
         let flagged = self.checkAmount(amount: amount)
         let reason = flagged ? "Amount exceeds threshold" : "Normal transaction"
 
@@ -68,12 +68,12 @@ pub contract ComplianceMonitor {
     }
 
     // Get current threshold
-    pub fun getThreshold(): UFix64 {
+    access(all) fun getThreshold(): UFix64 {
         return self.threshold
     }
 
     // Get total flagged transactions
-    pub fun getAuditCount(): UInt64 {
+    access(all) fun getAuditCount(): UInt64 {
         return self.auditCount
     }
 
@@ -86,6 +86,6 @@ pub contract ComplianceMonitor {
         self.AdminStoragePath = /storage/ComplianceMonitorAdmin
 
         // Create admin resource and save to storage
-        self.account.save(<-create Admin(), to: self.AdminStoragePath)
+        self.account.storage.save(<-create Admin(), to: self.AdminStoragePath)
     }
 }

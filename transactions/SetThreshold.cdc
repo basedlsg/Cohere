@@ -4,19 +4,19 @@
 // Usage:
 // flow transactions send ./transactions/SetThreshold.cdc \
 //   --arg UFix64:15000.0 \
-//   --signer testnet-account \
-//   --network=testnet
+//   --signer emulator-account \
+//   --network=emulator
 
-import ComplianceMonitor from "../contracts/ComplianceMonitor.cdc"
+import ComplianceMonitor from 0xf8d6e0586b0a20c7
 
 transaction(newThreshold: UFix64) {
 
     // Reference to Admin resource
     let adminRef: &ComplianceMonitor.Admin
 
-    prepare(signer: AuthAccount) {
+    prepare(signer: auth(Storage, BorrowValue) &Account) {
         // Borrow Admin capability from storage
-        self.adminRef = signer.borrow<&ComplianceMonitor.Admin>(
+        self.adminRef = signer.storage.borrow<&ComplianceMonitor.Admin>(
             from: ComplianceMonitor.AdminStoragePath
         ) ?? panic("Could not borrow Admin reference")
     }

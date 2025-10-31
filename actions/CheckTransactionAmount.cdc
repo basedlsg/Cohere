@@ -4,33 +4,33 @@
 // Part of Forte Actions framework - standardized interface
 // for composable DeFi/compliance workflows
 
-import ComplianceMonitor from "../contracts/ComplianceMonitor.cdc"
+import ComplianceMonitor from 0xf8d6e0586b0a20c7
 
 // Action interface following Flow Actions pattern
 // Reference: https://developers.flow.com/blockchain-development-tutorials/forte/flow-actions
-pub contract CheckTransactionAmount {
+access(all) contract CheckTransactionAmount {
 
     // Action resource implementing Flow Actions interface
-    pub resource Action {
+    access(all) resource Action {
 
-        // Execute action: check if transaction amount exceeds threshold
-        pub fun execute(amount: UFix64): Bool {
+        // Check if transaction amount exceeds threshold
+        access(all) fun check(amount: UFix64): Bool {
             return ComplianceMonitor.checkAmount(amount: amount)
         }
 
         // Get current compliance threshold
-        pub fun getThreshold(): UFix64 {
+        access(all) fun getThreshold(): UFix64 {
             return ComplianceMonitor.getThreshold()
         }
 
         // Validate input parameters
-        pub fun validate(amount: UFix64): Bool {
+        access(all) fun validate(amount: UFix64): Bool {
             return amount > 0.0
         }
     }
 
     // Create a new Action resource
-    pub fun createAction(): @Action {
+    access(all) fun createAction(): @Action {
         return <-create Action()
     }
 
