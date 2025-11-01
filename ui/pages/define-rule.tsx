@@ -63,6 +63,9 @@ export default function DefineRule() {
     setTxStatus('Submitting transaction to Flow emulator...')
 
     try {
+      // Format as UFix64 (must have decimal point)
+      const formattedThreshold = parseFloat(threshold).toFixed(1)
+
       const txId = await fcl.mutate({
         cadence: `
           import ComplianceMonitor from ${CONTRACTS.ComplianceMonitor}
@@ -86,7 +89,7 @@ export default function DefineRule() {
             }
           }
         `,
-        args: (arg: any, tx: any) => [arg(threshold, t.UFix64)],
+        args: (arg: any, tx: any) => [arg(formattedThreshold, t.UFix64)],
         limit: 9999
       })
 
